@@ -93,5 +93,9 @@
     "agents": "Agents",
     "create": "Create",
     "beta": "beta"
+  },
+  "tasks": {
+    "title": "Tasks",
+    "selectDepartment": "Select a department space to view tasks."
   }
 }

@@ -93,5 +93,9 @@
     "agents": "智能体",
     "create": "新建",
     "beta": "测试版"
+  },
+  "tasks": {
+    "title": "任务",
+    "selectDepartment": "请先选择部门空间，再查看任务。"
   }
 }

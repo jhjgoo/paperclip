@@ -31,4 +31,9 @@ describe("checkStaticText", () => {
       expect(checkStaticText(readFileSync(fileUrl, "utf8"), fileUrl.pathname)).toEqual([]);
     }
   });
+
+  it("accepts the localized task index page", () => {
+    const fileUrl = new URL("../pages/Issues.tsx", import.meta.url);
+    expect(checkStaticText(readFileSync(fileUrl, "utf8"), "Issues.tsx")).toEqual([]);
+  });
 });
