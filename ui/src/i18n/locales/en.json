@@ -54,5 +54,44 @@
   },
   "format": {
     "perMonth": "{{amount}}/mo"
+  },
+  "layout": {
+    "skipToMainContent": "Skip to main content",
+    "closeSidebar": "Close sidebar"
+  },
+  "navigation": {
+    "openSearch": "Open search",
+    "keepSidebarExpanded": "Keep sidebar expanded",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "mobile": "Mobile navigation",
+    "newTask": "New task",
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "inbox": "Inbox",
+    "unread": "unread",
+    "decisions": "Decisions",
+    "status": "Status",
+    "conferenceRoom": "Conference room",
+    "work": "Work",
+    "tasks": "Tasks",
+    "cases": "Cases",
+    "routines": "Routines",
+    "pipelines": "Pipelines",
+    "goals": "Goals",
+    "artifacts": "Artifacts",
+    "skills": "Skills",
+    "workspaces": "Workspaces",
+    "projects": "Projects",
+    "company": "Company",
+    "organization": "Organization",
+    "apps": "Apps",
+    "timeline": "Timeline",
+    "costs": "Costs",
+    "activity": "Activity",
+    "settings": "Settings",
+    "agents": "Agents",
+    "create": "Create",
+    "beta": "beta"
   }
 }

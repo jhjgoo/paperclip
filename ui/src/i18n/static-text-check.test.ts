@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { checkStaticText } from "./static-text-check";
@@ -17,5 +18,17 @@ describe("checkStaticText", () => {
         "Fixture.tsx",
       ),
     ).toEqual(["Fixture.tsx:1 JSX text must use i18n: Save"]);
+  });
+
+  it("accepts the localized application shell", () => {
+    const fileUrl = new URL("../components/Layout.tsx", import.meta.url);
+    expect(checkStaticText(readFileSync(fileUrl, "utf8"), "Layout.tsx")).toEqual([]);
+  });
+
+  it("accepts localized desktop and mobile navigation", () => {
+    for (const path of ["../components/Sidebar.tsx", "../components/MobileBottomNav.tsx"]) {
+      const fileUrl = new URL(path, import.meta.url);
+      expect(checkStaticText(readFileSync(fileUrl, "utf8"), fileUrl.pathname)).toEqual([]);
+    }
   });
 });

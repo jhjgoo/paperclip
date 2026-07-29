@@ -54,5 +54,44 @@
   },
   "format": {
     "perMonth": "{{amount}}/月"
+  },
+  "layout": {
+    "skipToMainContent": "跳到主要内容",
+    "closeSidebar": "关闭侧边栏"
+  },
+  "navigation": {
+    "openSearch": "打开搜索",
+    "keepSidebarExpanded": "保持侧边栏展开",
+    "expandSidebar": "展开侧边栏",
+    "collapseSidebar": "收起侧边栏",
+    "mobile": "移动端导航",
+    "newTask": "新建任务",
+    "dashboard": "仪表盘",
+    "home": "首页",
+    "inbox": "收件箱",
+    "unread": "未读",
+    "decisions": "决策",
+    "status": "状态",
+    "conferenceRoom": "协作室",
+    "work": "工作",
+    "tasks": "任务",
+    "cases": "案例",
+    "routines": "例程",
+    "pipelines": "流水线",
+    "goals": "目标",
+    "artifacts": "工件",
+    "skills": "技能",
+    "workspaces": "工作区",
+    "projects": "项目",
+    "company": "部门空间",
+    "organization": "组织",
+    "apps": "应用",
+    "timeline": "时间线",
+    "costs": "成本",
+    "activity": "活动",
+    "settings": "设置",
+    "agents": "智能体",
+    "create": "新建",
+    "beta": "测试版"
   }
 }
