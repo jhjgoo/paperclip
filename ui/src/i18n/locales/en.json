@@ -5,5 +5,54 @@
       "description": "Get started by creating a company.",
       "newCompany": "New Company"
     }
+  },
+  "profile": {
+    "breadcrumbs": { "settings": "Settings", "instanceSettings": "Instance settings", "profile": "Profile" },
+    "title": "Profile",
+    "description": "Control how your account appears in the sidebar and other board surfaces.",
+    "loading": "Loading profile...",
+    "loadFailed": "Failed to load profile.",
+    "updateFailed": "Failed to update profile.",
+    "uploadFailed": "Failed to upload avatar.",
+    "selectCompanyToUpload": "Select a department space before uploading a profile avatar.",
+    "defaultName": "Board",
+    "noEmail": "No email",
+    "uploadHint": {
+      "withCompany": "Stored in Paperclip file storage for {{company}}.",
+      "withoutCompany": "Select a department space to upload an avatar into Paperclip storage."
+    },
+    "avatar": {
+      "change": "Change photo",
+      "upload": "Upload photo",
+      "remove": "Remove",
+      "hint": "Click the avatar to upload a new image. {{uploadHint}}"
+    },
+    "displayName": { "label": "Display name", "hint": "Shown in the sidebar account footer and comment author surfaces." },
+    "email": { "label": "Email", "hint": "Email is managed by your auth session and is read-only here." },
+    "save": { "saving": "Saving...", "action": "Save profile" },
+    "language": {
+      "title": "Display and language",
+      "description": "Choose the language for this browser. This does not update your profile.",
+      "label": "Interface language",
+      "zhCN": "Chinese (Simplified)",
+      "en": "English"
+    }
+  },
+  "accountMenu": {
+    "open": "Open account menu",
+    "defaultName": "Board",
+    "signedIn": "Signed in",
+    "localWorkspace": "Local workspace board",
+    "account": "Account",
+    "local": "Local",
+    "version": "Paperclip v{{version}}",
+    "viewProfile": { "label": "View profile", "description": "Open your activity, task, and usage ledger." },
+    "editProfile": { "label": "Edit profile", "description": "Update your display name and avatar." },
+    "documentation": { "label": "Documentation", "description": "Open Paperclip docs in a new tab." },
+    "feedback": { "label": "Feedback", "description": "Share feedback or report a task." },
+    "signOut": { "pending": "Signing out...", "action": "Sign out", "description": "End this browser session." }
+  },
+  "format": {
+    "perMonth": "{{amount}}/mo"
   }
 }

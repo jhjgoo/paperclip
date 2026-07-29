@@ -18,10 +18,9 @@ describe("locale validation", () => {
     expect(t("app.missing")).toBe("app.missing");
   });
 
-  it("accepts registered locale files", () => {
-    expect(Object.keys(localeMessages)).toContain("en");
-    for (const [locale, messages] of Object.entries(localeMessages)) {
-      expect(validateLocaleMessages(messages), locale).toEqual([]);
+  it("accepts each product-supported locale", () => {
+    for (const locale of supportedLocales) {
+      expect(validateLocaleMessages(localeMessages[locale]), locale).toEqual([]);
     }
   });
 

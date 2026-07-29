@@ -4,6 +4,7 @@ import { act } from "react";
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { i18n } from "../i18n";
 import { ProfileSettings } from "./ProfileSettings";
 
 const mockAuthApi = vi.hoisted(() => ({
@@ -84,6 +85,7 @@ describe("ProfileSettings", () => {
   afterEach(() => {
     container.remove();
     document.body.innerHTML = "";
+    window.localStorage.clear();
     vi.clearAllMocks();
   });
 
@@ -125,6 +127,41 @@ describe("ProfileSettings", () => {
       name: "Jane Example",
       image: "/api/assets/asset-1/content",
     });
+
+    await act(async () => {
+      root.unmount();
+    });
+  });
+
+  it("changes the interface language without updating the profile", async () => {
+    const root = createRoot(container);
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+
+    await act(async () => {
+      root.render(
+        <QueryClientProvider client={queryClient}>
+          <ProfileSettings />
+        </QueryClientProvider>,
+      );
+    });
+    await flushReact();
+    await flushReact();
+
+    const languageSelect = container.querySelector("#profile-language") as HTMLSelectElement | null;
+    expect(languageSelect).not.toBeNull();
+
+    await act(async () => {
+      if (!languageSelect) return;
+      languageSelect.value = "en";
+      languageSelect.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+    await flushReact();
+
+    expect(i18n.resolvedLanguage).toBe("en");
+    expect(window.localStorage.getItem("paperclip.locale")).toBe("en");
+    expect(mockAuthApi.updateProfile).not.toHaveBeenCalled();
 
     await act(async () => {
       root.unmount();

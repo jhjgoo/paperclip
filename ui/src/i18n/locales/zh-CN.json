@@ -5,5 +5,54 @@
       "description": "先创建一个部门空间，即可开始使用。",
       "newCompany": "新建部门空间"
     }
+  },
+  "profile": {
+    "breadcrumbs": { "settings": "设置", "instanceSettings": "实例设置", "profile": "个人设置" },
+    "title": "个人设置",
+    "description": "管理你的账户在侧边栏及其他工作台位置中的展示方式。",
+    "loading": "正在加载个人设置…",
+    "loadFailed": "加载个人设置失败。",
+    "updateFailed": "更新个人设置失败。",
+    "uploadFailed": "上传头像失败。",
+    "selectCompanyToUpload": "请先选择部门空间，再上传个人头像。",
+    "defaultName": "工作台",
+    "noEmail": "未设置邮箱",
+    "uploadHint": {
+      "withCompany": "文件将存储在 {{company}} 的 Paperclip 文件存储中。",
+      "withoutCompany": "请先选择部门空间，再将头像上传到 Paperclip 文件存储。"
+    },
+    "avatar": {
+      "change": "更换头像",
+      "upload": "上传头像",
+      "remove": "移除",
+      "hint": "点击头像即可上传新图片。{{uploadHint}}"
+    },
+    "displayName": { "label": "显示名称", "hint": "显示在侧边栏账户区和评论作者等位置。" },
+    "email": { "label": "邮箱", "hint": "邮箱由当前登录会话管理，此处仅供查看。" },
+    "save": { "saving": "正在保存…", "action": "保存个人设置" },
+    "language": {
+      "title": "显示与语言",
+      "description": "选择此浏览器的界面语言，不会修改你的个人资料。",
+      "label": "界面语言",
+      "zhCN": "简体中文",
+      "en": "English"
+    }
+  },
+  "accountMenu": {
+    "open": "打开账户菜单",
+    "defaultName": "工作台",
+    "signedIn": "已登录",
+    "localWorkspace": "本地工作区工作台",
+    "account": "账户",
+    "local": "本地",
+    "version": "Paperclip v{{version}}",
+    "viewProfile": { "label": "查看个人资料", "description": "查看你的活动、任务和用量账本。" },
+    "editProfile": { "label": "编辑个人设置", "description": "更新显示名称和头像。" },
+    "documentation": { "label": "文档", "description": "在新标签页中打开 Paperclip 文档。" },
+    "feedback": { "label": "反馈", "description": "提交反馈或报告任务问题。" },
+    "signOut": { "pending": "正在退出…", "action": "退出登录", "description": "结束当前浏览器会话。" }
+  },
+  "format": {
+    "perMonth": "{{amount}}/月"
   }
 }
