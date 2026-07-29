@@ -1,12 +1,19 @@
 import { describe, expect, it } from "vitest";
 import { t } from ".";
 import en from "./locales/en.json";
-import { localeMessages } from "./locales";
+import zhCN from "./locales/zh-CN.json";
+import { DEFAULT_LOCALE, i18nextResources, localeMessages, supportedLocales } from "./locales";
 import { validateLocaleMessages } from "./locale-validation";
 
 describe("locale validation", () => {
-  it("resolves English messages with key and default fallbacks", () => {
-    expect(t("app.noCompanies.title")).toBe(en.app.noCompanies.title);
+  it("defaults to Chinese and registers the supported locales", () => {
+    expect(DEFAULT_LOCALE).toBe("zh-CN");
+    expect(supportedLocales).toEqual(expect.arrayContaining(["zh-CN", "en"]));
+    expect(Object.keys(i18nextResources)).toEqual(["zh-CN", "en"]);
+  });
+
+  it("resolves Chinese messages with key and default fallbacks", () => {
+    expect(t("app.noCompanies.title")).toBe(zhCN.app.noCompanies.title);
     expect(t("app.missing", { defaultValue: "Fallback" })).toBe("Fallback");
     expect(t("app.missing")).toBe("app.missing");
   });

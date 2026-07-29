@@ -2,7 +2,7 @@ import type { Resource } from "i18next";
 
 import { assertValidLocaleMessages } from "./locale-validation";
 
-export const DEFAULT_LOCALE = "en" as const;
+export const DEFAULT_LOCALE = "zh-CN" as const;
 
 const localeModules = import.meta.glob("./locales/*.json", {
   eager: true,
@@ -32,10 +32,16 @@ for (const [locale, messages] of Object.entries(localeMessages)) {
   }
 }
 
-export const supportedLocales = Object.keys(localeMessages);
+export const supportedLocales = ["zh-CN", "en"] as const;
+
+for (const locale of supportedLocales) {
+  if (!(locale in localeMessages)) {
+    throw new Error(`Missing supported locale messages for ${locale}`);
+  }
+}
 
 export const i18nextResources: Resource = Object.fromEntries(
-  Object.entries(localeMessages).map(([locale, messages]) => [locale, { translation: messages }]),
+  supportedLocales.map((locale) => [locale, { translation: localeMessages[locale] }]),
 ) as Resource;
 
-export type SupportedLocale = keyof typeof localeMessages;
+export type SupportedLocale = (typeof supportedLocales)[number];
