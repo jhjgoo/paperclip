@@ -97,5 +97,25 @@
   "tasks": {
     "title": "任务",
     "selectDepartment": "请先选择部门空间，再查看任务。"
+  },
+  "projects": {
+    "title": "项目",
+    "selectDepartment": "请先选择部门空间，再查看项目。",
+    "sort": "排序",
+    "sortBy": "排序：{{label}}",
+    "name": "名称",
+    "updated": "更新时间",
+    "created": "创建时间",
+    "targetDate": "目标日期",
+    "ascending": "升序",
+    "descending": "降序",
+    "add": "新建项目",
+    "empty": "还没有项目。",
+    "mine": "我的项目",
+    "other": "其他项目",
+    "projectCount_one": "{{count}} 个项目",
+    "projectCount_other": "{{count}} 个项目",
+    "taskCount_one": "{{count}} 个任务",
+    "taskCount_other": "{{count}} 个任务"
   }
 }

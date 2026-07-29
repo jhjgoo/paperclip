@@ -97,5 +97,25 @@
   "tasks": {
     "title": "Tasks",
     "selectDepartment": "Select a department space to view tasks."
+  },
+  "projects": {
+    "title": "Projects",
+    "selectDepartment": "Select a department space to view projects.",
+    "sort": "Sort",
+    "sortBy": "Sort: {{label}}",
+    "name": "Name",
+    "updated": "Updated",
+    "created": "Created",
+    "targetDate": "Target date",
+    "ascending": "Ascending",
+    "descending": "Descending",
+    "add": "Add project",
+    "empty": "No projects yet.",
+    "mine": "My Projects",
+    "other": "Other Projects",
+    "projectCount_one": "{{count}} project",
+    "projectCount_other": "{{count}} projects",
+    "taskCount_one": "{{count}} task",
+    "taskCount_other": "{{count}} tasks"
   }
 }
