@@ -21,7 +21,7 @@ TV-01～TV-05 的保留证据、47 个源码摘要、7 条依赖边和五类身�
 
 TV-08 的第一阶段机械 Campaign 状态已经通过固定合成 Case 验证：冻结上下文、单变量候选、预算/漂移、Late Fact/Reopen、效果报告和人工精确 Digest 晋升均可机械表达；完整 TV-08 仍需真实 L1 与真实 Candidate 运行，因此保持 `inconclusive`。详见 [Improvement Campaign 机械状态技术验证报告](./18-improvement-campaign-validation-report.md)。
 
-当前文档基线以 [决策与验证台账](./00-decision-and-validation-register.md) 中的 DEC-001 至 DEC-125 为准。早期研究中的 `SOP Run = Pipeline Case`、`Stage = Pipeline Stage`、`stage_loop Pipeline Automation`、通用 Context Item、每 Run 选择 Connector、把 Workspace 与文件资源库统一成同一物理存储、由 Server 进程直接执行 Agent，以及把持续优化简化成单一人工 Candidate 的方案已经被后续已确认 DEC 替代，不得作为后续实现依据；P0-P10 原型只提供可行性证据，不拥有改写产品决策的权限。
+当前文档基线以 [决策与验证台账](./00-decision-and-validation-register.md) 中的 DEC-001 至 DEC-132 为准。早期研究中的 `SOP Run = Pipeline Case`、`Stage = Pipeline Stage`、`stage_loop Pipeline Automation`、通用 Context Item、每 Run 选择 Connector、把 Workspace 与文件资源库统一成同一物理存储、由 Server 进程直接执行 Agent，以及把持续优化简化成单一人工 Candidate 的方案已经被后续已确认 DEC 替代，不得作为后续实现依据；P0-P10 原型只提供可行性证据，不拥有改写产品决策的权限。
 
 技术验证的问题、结果、Digest、依赖与分层 Go/No-Go 已收口到本目录的验证报告；可丢弃原型和历史执行计划未纳入正式开发基线，后续不得依赖已删除命令恢复实验路径。Gate A 已满足；Gate B 目前只有孤立领域契约原型与兼容矩阵证据，缺少生产 Schema/API/UI/运行链路，状态为 `inconclusive / No-Go`。MoonTV throwaway 只验证 Heartbeat 投递与机械 Kernel 推进的窄问题，不授权启动真实研发灯塔，也不能直接开发目标仓库。
 
@@ -66,6 +66,8 @@ DISC-001 至 DISC-008 已全部收口，当前没有待确认的产品阻塞项�
 | 08 | 跨 Run 的 Improvement Campaign、候选评价与人工晋升 | 修改运行中 SOP、Agent 权限或自动采用 Skill |
 | 09 | 内容盲企业治理投影、平台动作、健康、成本与审计 | 部门业务内容、Agent 组装或 SOP 语义 |
 | 10 | 研发灯塔启动条件、故障演练与验收证据 | 新增通用产品语义或研发专用硬编码 |
+| 13 | Knowledge Processing、Citation 与能力草稿的来源和生命周期 | SOP 发布、Skill 安装、Connection 启用或运行时检索策略 |
+| 14 | Channel Gateway、外部身份、入站幂等、路由与可靠投递 | Run/Stage 状态、Human Gate 决策或平行聊天工作模型 |
 
 出现表述冲突时，先以 `CONTEXT.md` 的领域词义和 `00` 决策台账为基线，再由上表的主责子需求解释具体行为。03、07、09 中的跨模块展示要求只是读模型和操作入口，不得覆盖 04 至 06 的写模型或状态所有权；10 只能验证 01 至 09，不能借灯塔样本创建新的通用契约。
 
@@ -125,14 +127,11 @@ SOP Run            = 一次具体业务交付
 └── 安全、风险、合规与审计
 
 部门工作空间
-├── 结果与行动 Dashboard
-├── Projects（包括 Project `Artifacts`）
-├── Tasks 与 SOP Runs
-├── SOP Studio
-├── Agent、Skills 与 Connections
-├── Run Cockpit（包括 Stage 人工介入）
-├── Resources
-└── 质量与持续优化
+├── 工作台：我的待办、Active Runs、Input Requests、Human Gates
+├── 交付：Projects、Tasks、SOP Runs、Artifacts
+├── 构建：SOP Studio、Agent Studio、Knowledge、Skills、Connections
+├── 触达：Channels、Triggers、Schedules
+└── 部门设置
 ```
 
 ### 4.3 技术演进方向
@@ -243,6 +242,8 @@ Pipeline 可以保留为普通工作流能力，或作为从 Execution Definitio
 54. MVP 必须交付完整核心 Run Cockpit、Stage Detail、人工操作、失败恢复和 Project Artifact 检查发布闭环；自定义看板与高级跨 Run 分析延后。
 55. MVP 必须验证至少一个受控自治 Improvement Campaign：单次只优化一个低风险目标，保留多个候选与独立评价证据，并由人决定是否晋升。
 56. MVP 的 Enterprise Console 必须形成内容盲的基础设施治理闭环：企业管理员可治理部门与额度、AI 基础能力、Worker/容量、平台审批和审计，但不能因此进入部门业务内容或修改业务 SOP。
+57. MVP 必须验证一条知识到 SOP 草稿的最小纵切；知识索引保持派生，Candidate 保持待审核，不能绕过 Validation Run 与人工发布。
+58. MVP 必须验证一条企业 IM 私聊到 Run Request 的最小纵切；Channel Gateway 只负责接入，不拥有 Run、Gate 或业务状态。
 
 ## 6. 子需求目录
 
@@ -261,6 +262,8 @@ Pipeline 可以保留为普通工作流能力，或作为从 Execution Definitio
 | 10 | [研发灯塔 SOP 原型验证规格](./10-development-lighthouse-prototype-acceptance.md) | 产品验收边界已确认 | 汇总首期关键验证项 |
 | 11 | 企业 SOP 仓库与跨部门复用 | 延后 | SOP 模型稳定后重新设计 |
 | 12 | [全站国际化与中文化](./24-ui-internationalization-and-chinese-localization.md) | 产品规格已确认，待拆分实现 | 无 |
+| 13 | [知识处理、引用与能力草稿](./25-knowledge-processing-and-capability-drafting.md) | 产品契约已确认，生产纵切待验证 | VAL-019 |
+| 14 | [Channel Gateway 与请求接入](./26-channel-gateway-and-request-intake.md) | 产品契约已确认，生产纵切待验证 | VAL-020 |
 
 ## 7. 子需求编写顺序
 
@@ -277,6 +280,8 @@ Pipeline 可以保留为普通工作流能力，或作为从 Execution Definitio
 → 评估与持续优化
 → 企业治理
 → 研发灯塔原型验证规格
+→ 知识处理与能力草稿
+→ Channel Gateway 与请求接入
 ```
 
 某个子需求遇到未决问题时：
@@ -342,7 +347,9 @@ Pipeline 可以保留为普通工作流能力，或作为从 Execution Definitio
 - Kubernetes、多节点调度和横向扩展；
 - 生产环境部署原型；
 - Policy Studio 或通用业务规则引擎；
-- SOP Copilot；
+- 自动发布式 SOP Copilot；首期只提供带引用 Draft 与局部 Patch；
+- 向量数据库、知识图谱编辑器、自动本体和无来源能力生成；
+- 多 IM 渠道、群聊路由、LLM 自动选 SOP、渠道内 Human Gate 审批；
 - Artifact 的高级类型分类、复杂跨版本比较、批量 Review 与高级检索；MVP 的 Project 汇总、基础预览/下载/溯源/Review、standalone Task Work Product、文件固化与跨 Project 复用边界已经确认，不再属于延后决策；
 - 自动修改生产 SOP 或 Skill；
 - 通用聊天平台；
@@ -372,6 +379,8 @@ Pipeline 可以保留为普通工作流能力，或作为从 Execution Definitio
 - [Paperclip Plugin 与能力架构研究](../../../../doc/research/2026-07-25-paperclip-plugin-capability-architecture.md)
 - [Karpathy autoresearch 与 Two-Layer Loop 深度研究](../../../../doc/research/2026-07-25-karpathy-autoresearch-two-layer-loop.md)
 - [Self-improving Agent Loop 横向研究](../../../../doc/research/2026-07-25-self-improving-agent-loop-landscape.md)
+- [StaffDeck 一手来源研究底稿](../../../../doc/research/2026-07-31-staffdeck-primary-source-notes.md)
+- [StaffDeck 五项能力源码深挖与企业驾驶舱调整建议](../../../../doc/research/2026-07-31-staffdeck-five-capabilities-deep-dive.md)
 - [非幂等外部动作的重试与恢复研究](../../../../doc/research/2026-07-23-non-idempotent-external-action-recovery.md)
 - [Fresh Context 恢复充分性研究](../../../../doc/research/2026-07-23-fresh-context-recovery-sufficiency.md)
 - [持久化人工中断与隔日恢复研究](../../../../doc/research/2026-07-23-durable-human-wait-and-next-day-resume.md)

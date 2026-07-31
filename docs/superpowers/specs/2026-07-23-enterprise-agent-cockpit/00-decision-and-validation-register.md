@@ -151,6 +151,13 @@
 | DEC-123 | 控制正确性采用“正式 L1 Run + 固定同一已验证基线的受控 Validation Run”验证。正式 L1 Run 负责交付真实需求，不强制承担全部故障注入；Validation Run 固定后来被 L1 SOP Release 采用的同一份 Validation Snapshot，并复用相同 Project、Connector、Connection 与权限边界，但不直接执行或冒充生产 Release。复用真实能力契约、仓库和 Connection 不表示复用 L1 的外部业务对象。Validation Run 必须使用由 Validation Run ID 派生的独立动作键、专用 Branch/PR/Workflow 输入与非生产目标，禁止写入受保护默认 Branch、复用 L1 Pull Request/Artifact/Deployment 身份或触碰生产环境；允许副作用、清理方式和负责人必须在启动前固定并继续经过正常 Intent/Attempt、Human Gate 与审计。演练通过可重复故障开关覆盖自动测试失败后的局部返工、GitHub 外部动作已成功但响应超时后的 Reconcile、Human Gate 延迟处理与进程退出后恢复，以及部署 Workflow 失败后禁止误报交付成功。演练必须经过真实 Stage Kernel、Connector、GitHub/GitHub Actions 和持久状态，保留外部事实与审计，但不得破坏最终业务交付；历史回放绝对禁止 dispatch 外部 Effect，单元测试、Mock 接口或人工叙述不能替代端到端演练证据 | 已确认 |
 | DEC-124 | 研发灯塔明确排除：生产环境、生产数据和生产流量；外部需求系统 Connector；GitLab/JiHuLab 兼容；单需求跨多个代码仓库协同修改；破坏性数据库迁移或不可逆外部副作用；每 PR Preview Environment；Kubernetes、多 Worker 与跨节点 Workspace；Agent 自主批准 Review、合并或发布；企业 SOP 仓库、打包与跨部门复用；L2 自动晋升、自动修改 SOP 拓扑或训练模型；多部门并发压力和完整企业安全合规验收；以及没有真实基线的效率提升商业结论。这些是首个灯塔的验收非目标，不代表产品永久不做，也不得阻止 L0/L1/L2 按已确认边界完成 | 已确认 |
 | DEC-125 | 全站静态 UI 采用既有 i18next 单一 `translation` namespace，支持 `zh-CN` 与 `en`，默认 `zh-CN`；语言作为仅浏览器本地保存的个人偏好，入口为「账户菜单 → 个人设置 → 显示与语言」。所有既有及后续页面的静态文案、无障碍标签、前端错误和格式化必须双语覆盖并通过 Key 对等与硬编码门禁；用户、Agent、外部系统、文件、代码与原始日志内容保持原样 | 已确认 |
+| DEC-126 | 部门工作空间按「工作台、交付、构建、触达、部门设置」组织一级导航。该分区只是 Company Scope 内的导航与读模型投影，不新增 Department Scope、权限层或第二套业务事实源 | 已确认 |
+| DEC-127 | 知识处理采用 `Resource Revision → Knowledge Processing Job → Derived Index Revision → Citation`。Resource Revision 始终是权威来源，索引是可重建派生物；首期只支持 Markdown、PDF、docx，以及词法检索加可选 LLM 路由，不预先引入向量数据库或知识图谱编辑器 | 已确认 |
+| DEC-128 | 知识能力发现只能生成带固定 Citation Set 的 `SOP Draft Candidate`、`Skill Draft Candidate` 或 `Connection / HTTP Tool Draft Candidate`。Candidate 必须记录来源、摘要、模型、Schema 版本、风险与验证状态；不得直接创建 Release、安装 Skill、写入 Secret、启用 Tool 或改变运行中的 Run。首期不声称能从知识自动生成通用 `SKILL.md` | 已确认 |
+| DEC-129 | SOP Studio 增加带引用的 Generate Draft、限定 `target_paths` 的 Copilot Patch、Diff、Warning 和未解析能力面板。LLM Reflection 只产生 lint 建议；发布仍由 Schema、图可达性、能力权限、Resource/Secret/Workspace Preflight、Validation Run、Evidence 和人工发布机械门禁控制。首期不新增通用分支模型 | 已确认 |
+| DEC-130 | Connections / Apps 使用「选择应用 → 填写连接 → 测试连接 → 自动发现 Tool/Event/Webhook → 选择能力」的默认向导；Profile、Gateway、Policy、Grant、Runtime Slot 进入高级页面。所有 Probe 必须在 Worker 临时 Sandbox 中使用 scoped Secret，并受网络、超时、响应大小、副作用、审计和 Human Gate 约束 | 已确认 |
+| DEC-131 | IM 接入新增独立 Channel Gateway，权威事实至少包括 Channel Connection Revision、External Identity Binding、Inbound Event、Conversation Route 和 Delivery Outbox。Gateway 只做验证、归一化、去重与投递，Intake Router 只映射到既有 Run Request、Input Response 或 Discussion Message；不得复用 `BoardChat` 或创建平行 Chat Work Model | 已确认 |
+| DEC-132 | 首期渠道范围固定为已绑定的企业内部成员、单一企业 IM 渠道和私聊创建 Run Request。IM 自由文本不能批准 Human Gate、读取或提交 Secret、修改预算或执行高风险控制动作；相关操作只返回已认证 Web 深链。群聊、LLM 自动选 SOP、多渠道和渠道内审批延后 | 已确认 |
 
 ## 3. 产品讨论项
 
@@ -438,6 +445,24 @@ DISC-001 至 DISC-008 已全部收口。首期垂直切面已经覆盖单企业�
 - 证据：EVD-025、EVD-033；历史可丢弃原型（源码未纳入基线）；子需求 05 第 13、14 节。
 - 状态：已验证；生产 Worker Schema/API/Compose 与 TV-05 端到端接入尚未实现。
 
+### VAL-019：知识到 SOP 草稿的端到端 tracer bullet
+
+- 问题：Resource Revision 能否经过可恢复知识处理，形成带精确引用的 SOP Candidate，并在不绕过 Studio 门禁的前提下进入 Diff、Validation Run 与人工发布链？
+- 方法：实现最小纵切 `Resource Revision → Knowledge Processing Job → Derived Index Revision → Citation → SOP Draft Candidate → Studio Diff → Validation Run`，使用 Markdown、PDF、docx 固定样本和一组含冲突/缺失步骤的反例。
+- 必需证据：索引可从原 Revision 重建；Citation 可定位到固定来源；取消、失败和重试不产生重复 Candidate；Candidate 不能创建 Release 或扩大能力；局部 Patch 只修改允许路径；来源变化使旧 Candidate/Validation 失效；Validation Run 仍执行既有机械门禁。
+- 阻塞：子需求 04、06、13，以及知识处理生产实现。
+- 验证合同：`docs/superpowers/specs/2026-07-23-enterprise-agent-cockpit/27-knowledge-to-sop-tracer-bullet-validation-plan.md`。
+- 状态：`planned / inconclusive / No-Go`；尚无运行原型证据。
+
+### VAL-020：IM 请求进入控制面的端到端 tracer bullet
+
+- 问题：企业 IM 私聊能否在身份、幂等、权限和审计成立的前提下创建唯一 Run Request，并可靠回执且不把自由文本升级为 Human Gate Decision？
+- 方法：实现最小纵切 `IM Inbound → Signature/Identity/Dedup → Run Request → Delivery Outbox → Web Gate Deep Link`，注入重复、乱序、进程退出、出站超时、身份撤销和伪造审批文本。
+- 必需证据：同一 Provider Event 只产生一个 Intake 结果；未知或失效身份不能创建 Run；Outbox 可恢复且不盲目重复发送；IM 文本不能批准 Gate、修改预算或读取 Secret；高风险动作进入已认证 Web 页面并重新鉴权；全链路保持 Company Scope 与审计。
+- 阻塞：子需求 02、04、07、14，以及 Channel Gateway 生产实现。
+- 验证合同：`docs/superpowers/specs/2026-07-23-enterprise-agent-cockpit/28-channel-intake-tracer-bullet-validation-plan.md`。
+- 状态：`planned / inconclusive / No-Go`；尚无运行原型证据。
+
 ## 6. 规格沉淀与验证前沿
 
 产品方向已经完成阶段性确认。后续不再把“用户确认”和“技术验证”混成一个阻塞状态：已确认的目标架构可以写入正式子需求，但必须同时保留尚缺证据和不得提前实现的边界。
@@ -453,6 +478,8 @@ DISC-001 至 DISC-008 已全部收口。首期垂直切面已经覆盖单企业�
 | Gate B / TV-07 | VAL-010 | 孤立投影原型已通过；仍须在生产纵切验证 Attention Signal、Incident 聚合、动作路由和投影重建 | 子需求 07 |
 | Gate B / TV-09 | VAL-013 | 孤立治理投影原型已通过；仍须在企业治理纵切验证 Governance DTO、Disclosure Manifest、字段白名单与泄露测试 | 子需求 09 |
 | Gate C / TV-08 | VAL-011、VAL-015 | 使用真实 L1 事实验证效果归因数据模型和证据驱动 Improvement Campaign | 子需求 08、10 |
+| Gate B / TV-10 | VAL-019 | 计划：验证知识处理、引用、SOP Candidate、Studio Diff 与 Validation Run 的最小生产纵切 | 子需求 04、06、13 |
+| Gate B / TV-11 | VAL-020 | 计划：验证 IM 身份、入站幂等、Run Request、Outbox 与 Web Gate 深链的最小生产纵切 | 子需求 02、04、07、14 |
 
 TV-01～TV-09 与 Gate A/B 的验证依赖、统一证据契约、停止规则和 Go/No-Go 门槛已经由对应验证报告收口。历史 Program 与执行级计划未纳入正式开发基线，后续不得依赖已删除的命令恢复原型；需要复验时应从正式 Ticket 的生产验收条件重新建立可运行计划。
 

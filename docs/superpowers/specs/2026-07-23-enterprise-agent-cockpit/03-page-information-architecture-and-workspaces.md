@@ -2,8 +2,8 @@
 
 状态：已确认信息骨架，视觉与详细交互待后续原型\
 依赖：子需求 01、子需求 02\
-关联决策：DEC-009 至 DEC-014、DEC-021、DEC-034、DEC-035、DEC-043、DEC-058 至 DEC-064、DEC-069 至 DEC-071、DEC-091 至 DEC-115\
-关联验证：VAL-008、VAL-014 已验证；VAL-013、VAL-016 孤立原型已验证、生产集成未验证
+关联决策：DEC-009 至 DEC-014、DEC-021、DEC-034、DEC-035、DEC-043、DEC-058 至 DEC-064、DEC-069 至 DEC-071、DEC-091 至 DEC-115、DEC-126\
+关联验证：VAL-008、VAL-014 已验证；VAL-013、VAL-016 孤立原型已验证、生产集成未验证；VAL-019、VAL-020 计划中
 
 ## 1. 目的
 
@@ -70,33 +70,36 @@ Scope Switcher 必须遵守子需求 02 的 Workspace Scope 契约：
 ### DEPT-001：目标导航
 
 ```text
-首页
-├── Dashboard
-└── 我的工作 / Inbox
+工作台
+├── 我的待办
+├── Active Runs
+├── Input Requests
+└── Human Gates
 
-工作
+交付
 ├── Projects
 ├── Tasks
-└── SOP Runs
+├── SOP Runs
+└── Artifacts（进入 Project 范围）
 
-资料
-└── Resources
-
-自动化能力
+构建
 ├── SOP Studio
-├── Agents
+├── Agent Studio
+├── Knowledge
 ├── Skills
 └── Connections / Apps
 
-改进
-├── Quality & Evaluation
-└── Cost & Activity
+触达
+├── Channels
+├── Triggers
+└── Schedules
 
-管理
-└── Department Settings
+部门设置
 ```
 
-“我的工作”可以先作为 Dashboard 行动区存在，待 Attention 使用频率和信息密度证明需要后再拆成独立页面。
+「我的待办」可以先作为工作台行动区存在，待 Attention 使用频率和信息密度证明需要后再拆成独立页面。
+
+以上分区是 Company Scope 内的导航投影，不新增持久化 Scope、部门层级或权限模型。「工作台」组合现有 Attention、Run、Input Request 和 Human Gate 读模型；「构建」和「触达」的写模型分别由子需求 04、06、13、14 拥有。
 
 ### DEPT-002
 
@@ -125,6 +128,10 @@ Connection Detail 分为基础连接、Agent Tools 和 Platform Integration 三�
 Connection Identity 必须稳定。Display Name 可编辑；Credential 轮换和同一 Provider Tenant 下的 Endpoint 修复可以保留 Connection ID，Endpoint 或结构化配置变化在重新测试通过后生成新的 Connection Configuration Revision；Provider Tenant、Organization、Site 或账套变化时引导创建新 Connection。稳定 Alias 已被 Agent 使用时，修改前必须展示影响并要求处理冲突，不能静默改变工具或 External Object 命名空间。
 
 Connection Detail 提供可恢复的 `Disable`，不在停用时删除 Agent Binding 或改写 SOP Release。停用后阻止新 Tool 调用和 Platform Integration 动作，依赖它的活跃 Stage 显示结构化 Blocked/Attention；重连并测试成功后允许恢复。Delete 只对无当前 Agent Binding、无已发布 SOP Release 引用的 Connection 开放；历史 Run 保留 Identity Snapshot 和调用审计但不永久锁定，删除也不级联 Connector、Extension 或共享 Credential。
+
+Connections / Apps 默认使用 5 步向导：选择应用、填写连接、测试连接、发现 Tool/Event/Webhook、选择能力并完成。Profile、Gateway、Policy、Grant 和 Runtime Slot 只在高级设置出现。Probe 的结果必须展示目标、Schema、风险、副作用和证据状态；未通过 Worker/Sandbox Probe 的草稿不能显示为健康 Connection。
+
+Knowledge 页面只展示 Resource Revision 的处理状态、派生索引、Citation、检索预览和 Capability Draft Review Queue。它不复制 Resources 文件树，也不提供直接发布按钮。Channels 页面只管理渠道连接、外部身份绑定、入站健康、失败投递和深链；普通用户仍从工作台查看由渠道创建的 Run 或待办，不进入第二套会话列表。
 
 ### DEPT-004：文件资源库重名交互
 

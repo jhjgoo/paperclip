@@ -3,8 +3,8 @@
 状态：产品模型已确认；机械 Campaign 状态原型已验证；真实 L1 归因、Researcher Agent 和生产晋升仍待验证\
 日期：2026-07-26\
 依赖：子需求 04、05、06、07\
-关联决策：DEC-017、DEC-018、DEC-086、DEC-089、DEC-090、DEC-122\
-关联验证：VAL-011、VAL-015
+关联决策：DEC-017、DEC-018、DEC-086、DEC-089、DEC-090、DEC-122、DEC-128\
+关联验证：VAL-011、VAL-015、VAL-019
 
 ## 1. 目标与边界
 
@@ -21,6 +21,8 @@ Improvement Loop（跨 Run）
 ```
 
 Stage 重试、Agent 反思或 Verifier 返工不等于 SOP/Skill 自我升级。跨 Run 改进拥有独立状态机、预算、候选池和晋升决定。
+
+Knowledge Processing 产生的 Capability Draft Candidate 与本子需求的 Improvement Candidate 不同：前者回答「来源资料中可能存在什么可构建能力」，进入人工草稿审阅；后者回答「相对固定生产 Base 的某个单变量修改是否更好」，必须具有 Campaign、Evaluator、Cases 和比较证据。Knowledge Candidate 不得冒充实验候选或 Effect Report；如果要证明其优于既有版本，必须另行创建 Improvement Campaign。
 
 ## 2. 首期产品原则
 

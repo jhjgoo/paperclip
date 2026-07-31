@@ -3,8 +3,8 @@
 状态：核心产品契约已确认，物理 Schema 与交互原型待验证\
 日期：2026-07-26\
 依赖：子需求 01、02、03\
-关联决策：DEC-004、DEC-022 至 DEC-048、DEC-058、DEC-062 至 DEC-068、DEC-087、DEC-094、DEC-095、DEC-115\
-关联验证：VAL-001、VAL-006、VAL-007、VAL-016、VAL-017
+关联决策：DEC-004、DEC-022 至 DEC-048、DEC-058、DEC-062 至 DEC-068、DEC-087、DEC-094、DEC-095、DEC-115、DEC-128、DEC-129\
+关联验证：VAL-001、VAL-006、VAL-007、VAL-016、VAL-017、VAL-019
 
 ## 1. 目标与边界
 
@@ -30,6 +30,19 @@ SOP Studio 不承担 Agent 或工具装配。部门管理员先在 Agent Studio 
 - 每 Run 的 Connector、MCP、Skill 或权限装配；
 - 将每个 Verifier 强制建成独立业务 Stage；
 - 企业 SOP 仓库、打包和跨部门传播。
+
+### 1.1 SOP Studio 的用户友好层
+
+Studio 在严格契约之上提供 4 个辅助入口：
+
+1. `Generate Draft`：从用户说明或固定 Citation Set 生成完整 Draft Revision；
+2. `Copilot Patch`：必须声明允许修改的 `target_paths`，只产生局部 Patch；
+3. `Diff & Warnings`：展示变更路径、来源引用、未解析能力、风险与机械校验结果；
+4. `Reflection Lint`：给出来源一致性、闭环、工具依据和副作用提示，但不产生通过事实。
+
+任何生成或改写都只创建 Draft Revision。用户必须先审阅 Diff；系统不得把模型自评、结构合法或“最小可运行草稿”解释为业务正确。首期使用 Draft Revision、Published Release 和「从旧 Release 新建草稿」，不新增通用 Branch/Fork 模型。
+
+知识发现生成的 SOP Draft Candidate 进入同一入口，并固定 Candidate Digest、Citation Set、来源 Resource Revision、生成模型和 Schema 版本。接受 Candidate 只表示将其内容应用到新 Draft Revision；拒绝或过期 Candidate 不修改 SOP。来源 Revision、Candidate Digest 或允许路径变化后，既有 Diff 审阅与 Validation 结论失效。
 
 ## 2. 核心领域模型
 
@@ -440,6 +453,7 @@ Studio 负责声明业务契约，Runtime 负责维护：
 - Schema Registry、Contract Ref 和兼容性升级机制；
 - SOP Resource Binding 的挂载模型和权限预检；
 - Run Composer 的自然语言 Argument 提取与确认交互；
+- Generate Draft、Citation Review、限定路径 Copilot Patch、Diff/Warning 和未解析能力面板的可用性原型；
 - 画布端口、连线和多分支路径错误提示原型；
 - 哪些高风险 Stage 由部门策略强制配置 Agent Verifier；
 - Agent Verifier 在复杂真实任务上的质量、成本和时延消融；
@@ -459,3 +473,6 @@ Studio 负责声明业务契约，Runtime 负责维护：
 8. Agent 或 Verifier 自报 `done/pass` 时，Kernel 仍拒绝缺少 required Output、Evidence 或合法 Verdict 的 Completion Candidate。
 9. Draft 生成 Validation Snapshot 并试跑通过后再次编辑 Stage Instruction；旧结果不能发布新内容，必须生成新快照并重新试跑。
 10. Verifier 针对 Producer Revision 1 产生的 Finding 保存在 Verification Result Revision 中，不得反写 Producer Output Set，也不能被 Producer 冒充为独立验证证据。
+11. 用户从固定 Citation Set 生成 SOP Draft，能逐项回到来源；接受 Candidate 只创建 Draft Revision，不能创建 Release。
+12. 用户要求只修改某个 Stage Instruction 时，Copilot Patch 不得改变 Stage Graph、Human Gate、Binding 或其他路径；越界 Patch 被机械拒绝。
+13. Reflection 返回“通过”但缺少能力、资源或 Validation Evidence 时，发布仍被阻止。

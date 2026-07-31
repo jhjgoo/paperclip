@@ -2,7 +2,7 @@
 
 状态：产品目标与范围已确认，量化指标待灯塔基线\
 依赖：无\
-关联决策：DEC-001 至 DEC-005、DEC-009、DEC-010、DEC-013、DEC-016 至 DEC-018、DEC-034、DEC-086 至 DEC-124
+关联决策：DEC-001 至 DEC-005、DEC-009、DEC-010、DEC-013、DEC-016 至 DEC-018、DEC-034、DEC-086 至 DEC-124、DEC-126 至 DEC-132
 
 ## 1. 目的
 
@@ -19,6 +19,8 @@
 5. 权限、凭据、成本、审批和风险缺乏统一治理；
 6. 团队 SOP 多为文档或隐性经验，无法直接运行；
 7. 多次运行后的经验不能稳定反馈到 SOP 和 Skill 版本。
+8. 业务知识很难在保留来源证据的同时转化为可审核、可验证的 SOP 或能力草稿；
+9. 请求入口局限于 Web，业务成员无法从日常 IM 安全地进入同一交付控制链。
 
 ## 3. 产品定位
 
@@ -82,6 +84,14 @@ SOP 负责人能够把文档或隐性工作方法转化为包含阶段、角色�
 
 企业管理员能够在不读取业务内容的前提下查看部门健康、平台成本、能力风险和合规异常。
 
+### JOB-007
+
+SOP 负责人能够从固定 Resource Revision 和 Citation 生成待审核能力草稿，在 Studio 中查看来源、Diff、风险和未解析能力，并继续完成正常 Validation 与发布。
+
+### JOB-008
+
+已绑定的内部成员能够从企业 IM 私聊创建 Run Request、收到可靠回执，并通过已认证 Web 页面完成高风险决定。
+
 ## 6. 核心价值
 
 ### VALU-001：统一能力
@@ -103,6 +113,10 @@ SOP 必须允许 Stage 内 Planner、Agent、Verifier 动态纠偏，同时保�
 ### VALU-005：持续改善
 
 平台必须区分运行内纠偏与跨运行优化，并支持从真实轨迹发起有界 Improvement Campaign：冻结基线和评价条件，由 Agent 在明确修改边界内连续提出隔离候选，经独立验证后由人决定是否晋升为只影响未来 Run 的新版本。
+
+### VALU-006：知识可转化、渠道可触达
+
+平台必须把知识处理结果保留为可重建索引与精确 Citation，把能力发现保留为待审核 Candidate；业务成员可以从受控渠道进入同一 Run Request、Input Request 和 Attention 链，但渠道本身不拥有业务状态。
 
 ## 7. 产品成功结果
 
@@ -145,6 +159,8 @@ Agent 进程或上下文结束后，平台能够依靠版本化状态、工件�
 - 支持纯业务 Project 以及零到多个 Git Root、Project Env、Preflight 和隔离 Run 派生的最小 Project Workspace；
 - 包含完整核心驾驶、人工介入、失败恢复与 Project Artifact 检查发布的 Run Cockpit；
 - 以研发灯塔 SOP 作为测试环境交付验收样本。
+- Markdown、PDF、docx 的知识处理、引用检索和 SOP/Skill/Connection 草稿候选；
+- 单一企业 IM 渠道的已绑定成员私聊 Run Request 入口、可靠回执和 Web Gate 深链。
 
 ### OUT-OF-SCOPE-001：当前不做
 
@@ -166,6 +182,8 @@ Agent 进程或上下文结束后，平台能够依靠版本化状态、工件�
 - 自定义合规规则、DLP、SIEM、风险文件识别、复杂告警编排、通用策略引擎和复杂企业 RBAC。
 - 多企业共享 SaaS、Enterprise/Tenant 业务层、跨企业运营后台和 Tenant Billing。
 - SAML、LDAP、SCIM、多身份提供商、IdP Group 自动映射部门/角色和完整企业目录同步。
+- 向量数据库、知识图谱编辑器、自动本体、多文档自动改写已发布 SOP 和知识自动生成通用 `SKILL.md`；
+- 多 IM 渠道、群聊请求、LLM 自动选择 SOP、渠道内自由文本审批和渠道侧独立会话工作模型。
 
 ## 9. 产品约束
 
@@ -196,6 +214,14 @@ SOP 只能检查和收窄 Agent 能力，不得通过 Role Slot、Stage 或 Plan
 ### CON-007
 
 一个 Paperclip Instance 只能属于一家企业；Company 只表示该企业内部部门，不能被重新解释为外部客户租户。不同部署环境必须使用独立 Instance 隔离数据、凭证、Worker 与审计。
+
+### CON-008
+
+Knowledge Processing 的索引、摘要和 Citation 是 Resource Revision 的派生物；能力 Candidate 不能绕过类型校验、能力边界、Worker/Sandbox Probe、Validation Run、Evidence 或人工发布。
+
+### CON-009
+
+Channel Gateway 只能把已鉴权、已去重的入站事件路由到既有领域 Service。IM 文本不得直接批准 Human Gate、修改预算、处理 Secret 或执行高风险运行控制。
 
 ## 10. 灯塔场景
 

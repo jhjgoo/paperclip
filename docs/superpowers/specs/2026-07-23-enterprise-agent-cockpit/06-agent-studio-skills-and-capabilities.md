@@ -3,8 +3,8 @@
 状态：产品操作模型已确认；权限、Connector 与 Worker 原型已验证，物理 Schema、生产集成与交互原型未验证\
 日期：2026-07-26\
 依赖：子需求 01、02、03、04、05\
-关联决策：DEC-008、DEC-087、DEC-094 至 DEC-115\
-关联验证：VAL-006、VAL-012、VAL-018
+关联决策：DEC-008、DEC-087、DEC-094 至 DEC-115、DEC-128、DEC-130\
+关联验证：VAL-006、VAL-012、VAL-018、VAL-019
 
 ## 1. 目标与边界
 
@@ -127,6 +127,23 @@ Agent Tool Binding 只接受两类明确来源的 Tool：
 
 两类 Tool 共用同一个 Agent Tool Binding、Stage Allowlist、短期能力凭证、Tool Gateway 和审计链。Connection-backed Tool 的来源能力边界包含 Connection/Credential Scope；Extension Tool 的来源能力边界包含 Extension 启用状态、部门开放范围、Contribution Version 和 Tool Contract。Tool Profile 只可预填一组选择，不成为必经配置层或新的授权层。
 
+### 6.1 Connection 配置向导与 Probe
+
+默认流程固定为：
+
+```text
+选择应用
+→ 填写 Endpoint、外部身份和 Credential Reference
+→ 在 Worker 临时 Sandbox 中测试连接
+→ 发现 Tool / Event / Webhook / External Object
+→ 预览 Schema、风险和副作用
+→ 选择能力并保存 Connection Configuration Revision
+```
+
+部门用户不需要在默认流程理解 Profile、Gateway、Policy、Grant 或 Runtime Slot；这些对象只在诊断和高级设置中展示。Probe 必须使用短期 scoped Secret，限制网络目标、超时和响应大小，并记录请求摘要、响应 Schema、风险、副作用和审计证据。写操作优先使用 Provider dry-run；不支持 dry-run 时必须经过 Human Gate。Probe、stdio MCP、外部 Skill 和生成代码均由 Worker/Sandbox 执行，不能进入 Server 主进程。
+
+Knowledge Processing 可以生成不含 Secret 的 `Connection / HTTP Tool Draft Candidate`。接受 Candidate 只预填向导，不能创建健康 Connection、绑定 Agent 或启用 Tool；来源不明确、缺少精确 URL/Method/参数或风险无法判断时，只生成 Warning，不猜测可执行接口。
+
 ## 7. Platform Integration
 
 部门在 Connection Detail 中单独启用 Connector 声明支持的 Event、Webhook、Sync 与 External Object。Definition 只声明能力，Connection 才承载具体外部身份和启用配置。
@@ -235,6 +252,8 @@ SOP Studio、SOP Run、Planner 和 Executor 均不得：
 8. SOP Run Composer 不出现 Connector、MCP、Skill、Tool 或权限选择器。
 9. Agent Studio 可分别绑定 Connection-backed Tool 与“平台工具”，两者经过同一 Tool Gateway 和授权链；需要外部账号的 Tool 不能绕过 Connection。
 10. Extension 发布新版本或修改 Tool Contract 后，既有 Agent Configuration Snapshot、SOP Release 和活跃 Run 仍解析旧来源版本与 Contract Digest，直到部门显式重绑、测试、Validation 和发布。
+11. 用户通过默认向导完成一个 Connection，无需配置底层 Grant/Runtime Slot；发现的新 Tool 默认未选择。
+12. HTTP Tool Candidate 不含 Secret，Probe 在临时 Sandbox 中执行并留下 Evidence；写操作没有 dry-run 或 Human Gate 时不能完成测试。
 
 ## 17. 验证状态与缺口
 
@@ -249,5 +268,7 @@ SOP Studio、SOP Run、Planner 和 Executor 均不得：
 - Connector Version、Connection Configuration Revision、Tool Catalog Revision、Extension Contribution Revision、Tool Contract Digest、引用保护删除和迁移事务的物理 Schema；
 - 上述能力通过正式 Connection、Tool Gateway、Worker、Secret 与审计链的最小生产纵切；
 - Agent Studio 的真实测试、失效提示和配置同步交互原型。
+- Connection 向导、发现、Probe、Schema Preview、风险提示与 Test Evidence 的交互原型；
+- Knowledge-derived Capability Draft Review Queue 到 Connection/Skill 草稿入口的来源固定、过期和拒绝行为。
 
 这些是生产证据和实现设计缺口，不再是产品责任链或操作模型待选项。
